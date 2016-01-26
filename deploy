@@ -1,0 +1,31 @@
+#!/bin/bash
+git checkout -- db/schema.rb
+git pull origin master
+
+if [ "$1" = "bundle" ]
+then
+bundle install --deployment --without development test
+fi
+
+if [ "$1" = "r" ]
+then
+RAILS_ENV=production bundle exec rake assets:precompile
+fi
+
+if [ "$1" = "rm" ]
+then
+bundle exec rake db:migrate RAILS_ENV=production
+RAILS_ENV=production bundle exec rake assets:precompile
+fi
+
+if [ "$1" = "m" ]
+then
+bundle exec rake db:migrate RAILS_ENV=production
+fi
+
+
+kill -9 $(cat tmp/pids/exposure-thin.0.pid)
+kill -9 $(cat tmp/pids/sidekiq-1.pid)
+SECRET_KEY_BASE="$(cat /etc/nginx/secret.txt)" RAILS_ENV=production bundle exec thin start -s1 -d --socket tmp/run/exposure.sock -P tmp/pids/exposure-thin.pid
+SECRET_KEY_BASE="$(cat /etc/nginx/secret.txt)" bundle exec sidekiq -d -L log/sidekiq.log -i 1 -e production -P tmp/pids/sidekiq-1.pid
+chown -R nginx /home/rails/exposure-rails

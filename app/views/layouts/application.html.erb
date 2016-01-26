@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>eXposure</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= render 'layouts/navbar' if (current_agency || current_admin) %>
+<%= yield %>
+<%= javascript_include_tag 'application' %>
+<%= yield :scripts %>
+<% flash.clear %>
+</body>
+</html>

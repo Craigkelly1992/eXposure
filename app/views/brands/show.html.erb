@@ -1,0 +1,88 @@
+<div class="container top-space">
+  <div class="row clearfix">
+    <div class="col-md-3 column sidebar">
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <%= image_tag @brand.photos[0].picture.url, class: "img img-rounded brand-image-flex" %>
+        </div>
+      </div>
+      <div class="row clearfix brand-stats">
+        <div class="col-md-12 column">
+          <p>Followers<span class="pull-right"><%= @brand.followers_count %></span></p>
+          <p>Total Submissions<span class="pull-right"><%= @brand.submissions_count %></span></p>
+          <p>
+            Page Views
+            <span class="pull-right"><%= @brand.impressionist_count(:message => 'brandview') %></span>
+          </p>
+          <hr>
+          <p>
+            <strong>Social Virality</strong>
+          </p>
+          <p>
+            Website
+            <span id="website" class="pull-right"><%= @brand.link_clicks("website") %></span>
+          </p>
+          <p>
+            Facebook
+            <span id="facebook" class="pull-right"><%= @brand.link_clicks("facebook") %></span>
+          </p>
+          <p>
+            Twitter
+            <span id="twitter" class="pull-right"><%= @brand.link_clicks("twitter") %></span>
+          </p>
+          <p>
+            Instagram
+            <span id="instagram" class="pull-right"><%= @brand.link_clicks("instagram") %></span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9 column">
+      <div class="row clearfix">
+        <div class="col-md-8 column">
+           <h3 class="brand-name"><%= @brand.name %></h3>
+        </div>
+        <div class="col-md-4 column text-right">
+          <%= link_to visit_brand_social_brands_path(:target => 'facebook', :id => @brand.id), method: :post, class: "btn btn-default btn-small tracker", :'data-tracker' => "facebook" do %>
+            <i class="fa fa-facebook"> </i>
+          <% end %>
+          <%= link_to visit_brand_social_brands_path(:target => 'twitter', :id => @brand.id), method: :post, class: "btn btn-default btn-small tracker", :'data-tracker' => "twitter" do %>
+            <i class="fa fa-twitter"> </i>
+          <% end %>
+          <%= link_to visit_brand_social_brands_path(:target => 'instagram', :id => @brand.id),  method: :post, class: "btn btn-default btn-small tracker", :'data-tracker' => "instagram" do %>
+            <i class="fa fa-instagram"> </i>
+          <% end %>
+           <%= link_to "Edit", edit_brand_path(@brand), class: "btn btn-default btn-actions-md", style: "margin-right: 1px;" if current_agency.owns? @brand %>
+        </div>
+      </div>
+      <div class="row clearfix second-row">
+        <div class="col-md-9 column">
+           <%= link_to @brand.website, visit_brand_social_brands_path(:target => 'website', :id => @brand.id), class: "tracker", method: :post, :'data-tracker' => "website" %>
+        </div>
+        <div class="col-md-3 column text-right">
+           <%= link_to "Delete", brand_path(@brand), class: "btn btn-default btn-actions-md", method: :delete, data: {confirm: "Are you sure?"} %>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <p>
+            <strong><%= @brand.slogan %></strong>
+          </p>
+          <p>
+            <%= @brand.description %>
+          </p>
+          <br>
+          <br>
+          <%= link_to "Create Contest", new_contest_path, class: "btn btn-default" %>
+          <br><br>
+
+          <table class="table text-center">
+            <tbody>
+              <%= render @contests, template: 'contests/contest' %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+// Place all the styles related to the contests controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.contest-image-xs {
+  width: 50px;
+}
+.contest-image-sm {
+  width: 100px;
+}
+.contest-image-md {
+  width: 200px;
+}
+.contest-image-flex {
+  width: 100%;
+
+}
+#upload-preview-contest {
+  vertical-align: middle;
+  margin-right: 20px;
+}
+#picture-input-contest {
+  position: absolute;
+  top: -1000;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  width: 0px;
+  height: 0px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.top-space {
+  margin-top: 20px;
+}
+.sidebar {
+  border-right: 1px #ddd solid;
+}
+.text-area {
+  margin-bottom: 30px;
+}
+.contest-stats {
+  margin-top: 20px;
+}
+.second-row {
+  vertical-align: middle;
+  margin-top: 3px;
+}
+.contest-name {
+  margin-top: 0px;
+}
+#upload-preview {
+  vertical-align: middle;
+  margin-right: 20px;
+}
+#picture-input {
+  position: absolute;
+  top: -1000;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  width: 0px;
+  height: 0px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}

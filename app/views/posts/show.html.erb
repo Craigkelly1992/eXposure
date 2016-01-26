@@ -1,0 +1,35 @@
+<div class="container" style="padding-top: 20px;">
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <div class="row clearfix">
+        <div class="column image-show-size vertical-middle">
+          <%= image_tag @post.user.profile_picture.url(:square), class: "avatar" %><%= @post.user.full_name %><br><br>
+        </div>
+        <div class="column image-show-size">
+          <%= image_tag @post.image.url, style: "width: 100%;" %>
+        </div>
+        <div class="row clearfix actions-row image-show-size">
+          <div class="col-md-6 column">
+            <p>
+              <i class="fa fa-heart" style="font-size: 12px;"> </i><%= @post.get_likes.size %> <i class="fa fa-comments"> </i><%= @post.comments.count %>
+            </p>
+          </div>
+          <div class="col-md-6 column text-right">
+            <p>
+              <%= time_ago_in_words(@post.created_at) %> ago
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="comments-list">
+          <%= render @comments %>
+          <%= will_paginate @comments %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>

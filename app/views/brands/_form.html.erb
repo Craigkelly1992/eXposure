@@ -1,0 +1,70 @@
+<div class="brand-new">
+<%= form_for @brand, :html => { :multipart => true } do |f| %>
+  <% if @brand.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@brand.errors.count, "error") %></h2>
+      <ul>
+      <% @brand.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <% index = 0%>
+    <%= f.fields_for :photos, @brand.photos do |f_photo| %>
+      <% if f_photo.object.new_record? %>
+        <output id="list-image-<%= index %>" class="brand-image-with-span-remove">
+          <span id="span-upload-preview-<%= index %>">
+            <span></span>
+            <%= image_tag "ph.jpg", class: "brand-image-sm upload-preview", id: "upload-preview-#{index}" %>
+            <%= f_photo.file_field :picture, id: "picture-input-#{index}", required: true, accept: "image/*", class: 'picture-brand'%>
+          </span>
+          <br></br>
+        <%= link_to "Upload Picture", "javascript:void(0);", class: "btn btn-default btn-xs", id: "upload-button-#{index}" %>
+        </output>
+      <% else %>
+          <output id="list-image-<%= index %>" class="brand-image-with-span-remove">
+          <%= f_photo.hidden_field :id%>
+          <%= f_photo.file_field :picture, id: "picture-input-#{index}", accept: "image/*", class: 'picture-brand'%>
+          <span id="span-upload-preview-<%= index %>">
+            <span class="remove_img_preview"></span>
+            <%= image_tag f_photo.object.picture_url, class: "brand-image-sm upload-preview", id: "upload-preview-#{index}" %>
+          </span>
+          <br></br>
+          <%= link_to "Upload Picture", "javascript:void(0);", class: "btn btn-default btn-xs", id: "upload-button-#{index}" %>
+          </output>
+      <% end %>
+      <% index += 1 %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :name, placeholder: "Name", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :slogan, placeholder: "Slogan", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <% if f.object.website.blank? %>
+      <%= f.url_field :website, placeholder: "Website", class: "form-control", value: "http://" %>
+    <% else %>
+      <%= f.url_field :website, placeholder: "Website", class: "form-control" %>
+    <% end %>
+  </div>
+  <div class="form-group"><%= f.url_field :facebook, placeholder: "Facebook URL", class: "form-control" %></div>
+  <div class="form-group input-group">
+    <span class="input-group-addon">@</span>
+    <%= f.text_field :twitter, placeholder: "Twitter username", class: "form-control" %>
+  </div>
+  <div class="form-group input-group">
+    <span class="input-group-addon">@</span>
+    <%= f.text_field :instagram, placeholder: "Instagram username", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_area :description, placeholder: "Description", class: "form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit class: "btn btn-default btn-block" %>
+  </div>
+<% end %>
+</div>

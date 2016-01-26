@@ -1,0 +1,15 @@
+common: &common
+  access_key_id: "AKIAI6CL3DM2SA6PE6WQ"
+  secret_access_key: "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"
+
+development:
+  <<: *common
+  bucket: "exposure_app_development"
+
+test:
+  <<: *common
+  bucket: "exposure_app_test"
+
+production:
+  <<: *common
+  bucket: "exposure_app_production"

@@ -1,0 +1,84 @@
+<%= form_for(@contest) do |f| %>
+  <% if @contest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contest.errors.count, "error") %></h2>
+      <ul>
+      <% @contest.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if @contest.new_record? %>
+    <%= image_tag "ph.jpg", class: "contest-image-sm", id: "upload-preview-contest" %>
+    <%= f.file_field :picture, id: "picture-input-contest", required: true, accept: "image/*" %>
+  <% else %>
+    <%= image_tag @contest.picture.url, class: "contest-image-sm", id: "upload-preview-contest" %>
+    <%= f.file_field :picture, id: "picture-input-contest", accept: "image/*" %>
+  <% end%>
+  <%= link_to "Upload Picture", "javascript:void(0);", class: "btn btn-default", id: "upload-button-contest" %>
+  <br><br>
+  <div class="form-group">Which brand?
+    <%= f.collection_select :brand_id, current_agency.brands, :id, :name, {}, {id: "brand-selection", "data-style" => "btn-default", "data-no-turbolink" => true} %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :title, placeholder: "Title", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :location, placeholder: "Start typing the location...", id: "autocomplete", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_area :description, placeholder: "Description", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_area :prizes, placeholder: "Prizes", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_area :rules, placeholder: "Rules", class: "form-control" %>
+  </div>
+  <div class="form-group">Start Date <br>
+    <%= f.datetime_select :start_date, placeholder: "Start Date/Time", class: "form-control" %>
+  </div>
+  <div class="form-group">End Date <br>
+    <%= f.datetime_select :end_date, placeholder: "End Date/Time", class: "form-control" %>
+  </div>
+  <div class="checkbox"><label><%= f.check_box :voting, id: "voting" %>Winner is determined by voting</label></div>
+  <br>
+    <%= f.submit class: "btn btn-default btn-block" %>
+<% end %>
+<% content_for :scripts do %>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#brand-selection').selectpicker();
+
+      $('#autocomplete').keypress(function(event) { return event.keyCode != 13; });
+
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+      autocomplete = new google.maps.places.Autocomplete(
+        /** @type {HTMLInputElement} */(document.getElementById('autocomplete')),
+            { types: ['geocode'] });
+        // When the user selects an address from the dropdown,
+        // skip to the next field.
+
+        function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = new google.maps.LatLng(
+                position.coords.latitude, position.coords.longitude);
+            autocomplete.setBounds(new google.maps.LatLngBounds(geolocation,
+                geolocation));
+          });
+        }
+      }
+    });
+  </script>
+<% end %>

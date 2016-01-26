@@ -1,0 +1,59 @@
+<div class="modal fade" id="winner-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+<div class="container top-space">
+  <div class="row clearfix">
+    <div class="col-md-3 column sidebar">
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <%= image_tag @contest.picture.url, class: "img img-rounded contest-image-flex" %>
+        </div>
+      </div>
+      <div class="row clearfix contest-stats">
+        <div class="col-md-12 column">
+          <p>Submissions Today<span class="pull-right"><%= @contest.submissions_count(:today) %></span></p>
+          <p>Total Submissions<span class="pull-right"><%= @contest.submissions_count(:all) %></span></p>
+          <p>Page Views<span class="pull-right"><%= @contest.impressionist_count %></span></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9 column">
+      <div class="row clearfix">
+        <div class="col-md-9 column">
+           <h3 class="contest-name"><%= @contest.brand.name %> - <%= @contest.title %></h3>
+           <span class="label label-<%= @contest.status == 'OPEN' ? 'success' : 'danger' %>"><%= @contest.status %></span>
+        </div>
+        <div class="col-md-3 column text-right">
+           <%= link_to "Edit", edit_contest_path(@contest), class: "btn btn-default btn-actions-md", style: "margin-right: 1px;" if current_agency.owns? @contest %>
+        </div>
+      </div>
+      <div class="row clearfix second-row">
+        <div class="col-md-9 column">
+           <p>
+           	<strong>Starts date:</strong> <%= !@contest.start_date.blank? ? Time.at(@contest.start_date).strftime("%B %d, %Y - %H:%M")+" EST" : "" %><br>
+            <strong>End date:</strong> <%= !@contest.end_date.blank? ? Time.at(@contest.end_date).strftime("%B %d, %Y - %H:%M")+' EST': "" %>
+          </p>
+        </div>
+        <div class="col-md-3 column text-right">
+           <%= link_to "Delete", contest_path(@contest), class: "btn btn-default btn-actions-md", method: :delete, data: {confirm: "Are you sure?"} %>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <p><strong>Location</strong><br><%= @contest.location %></p>
+          <p><strong>How to Enter</strong><br><%= @contest.description %></p>
+          <p><strong>Prizes</strong><br><%= @contest.prizes %></p>
+          <p><strong>Rules</strong><br><%= @contest.rules %></p>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <h4>Current Submissions</h4>
+          <%= will_paginate(@posts, renderer: BootstrapPagination::Rails) %>
+          <hr>
+          <%= render partial: 'posts/card', collection: @posts, as: :post %>
+          <%= will_paginate(@posts, renderer: BootstrapPagination::Rails) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

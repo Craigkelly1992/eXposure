@@ -1,0 +1,43 @@
+<div class="post-card">
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <div class="first-row">
+        <%= image_tag post.user.profile_picture.url(:square), class: "avatar" %><%= post.user.full_name %>
+        <span class="pull-right">
+          <%= link_to post_path(id: post.id, contest_id: post.contest), method: :delete, data: {confirm: "Are you sure?"} do %>
+            <i class="fa fa-times"> </i>
+          <% end %>
+        </span>
+      </div>
+      <div class="row clearfix image-row">
+        <div class="col-md-12 column">
+          <%= link_to (image_tag post.image.url(:square)), post_path(post) %>
+        </div>
+      </div>
+      <div class="row clearfix actions-row">
+        <div class="col-md-8 column">
+          <p>
+            <i class="fa fa-heart" style="font-size: 12px;"> </i><%= post.get_likes.size %> <i class="fa fa-comments"> </i><%= post.comments.count %>
+          </p>
+        </div>
+        <div class="col-md-4 column text-right">
+          <p>
+            <%= time_ago_in_words(post.created_at).gsub(/minutes|minute/, "m").gsub(/hour|hours/, "h") %>
+          </p>
+        </div>
+      </div>
+      <div class="row clearfix winner-row">
+        <div class="col-md-12 column">
+          <p id="winner-field-<%= post.user.id %>">
+            <% if post.is_selected %>
+              <i class="fa fa-certificate"> </i>Winner!
+            <% else %>
+            <!-- set_winner_contest_path(id: @contest.id, post_id: "1") -->
+              <%= link_to "Select as Winner", winner_window_contest_path(post_id: post.id), remote: true %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<hr>
+<div class="row clearfix">
+	<div class="col-md-12 column">
+		<%= image_tag comment.user.profile_picture.url(:square), class: "avatar" %><%= comment.user.full_name %>:
+	</div>
+</div>
+<div class="row clearfix">
+	<div class="col-md-12 column">
+		<%= comment.text %>
+	</div>
+</div>
+<div class="row clearfix">
+	<div class="col-md-12 column text-right">
+		<%= time_ago_in_words(comment.created_at) %> ago
+	</div>
+</div>

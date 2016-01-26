@@ -1,0 +1,39 @@
+<h1>Listing brands</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Agency</th>
+      <th>Name</th>
+      <th>Facebook</th>
+      <th>Twitter</th>
+      <th>Instagram</th>
+      <th>Slogan</th>
+      <th>Website</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @brands.each do |brand| %>
+      <tr>
+        <td><%= brand.agency %></td>
+        <td><%= brand.name %></td>
+        <td><%= brand.facebook %></td>
+        <td><%= brand.twitter %></td>
+        <td><%= brand.instagram %></td>
+        <td><%= brand.slogan %></td>
+        <td><%= brand.website %></td>
+        <td><%= brand.description %></td>
+        <td><%= link_to 'Show', brand %></td>
+        <td><%= link_to 'Edit', edit_brand_path(brand) %></td>
+        <td><%= link_to 'Destroy', brand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Brand', new_brand_path %>

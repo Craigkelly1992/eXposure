@@ -1,0 +1,37 @@
+// Place all the styles related to the posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.post-card {
+	width: 210px;
+	border: 0px;
+	float: left;
+	background: #ddd;
+	margin: 10px;
+	
+	.first-row {
+		padding: 10px;
+		
+		.avatar {
+			width: 30px;
+			margin-right: 10px;
+		}
+	}
+	.image-row {
+		padding-left: 10px;
+		padding-right: 10px;
+		img {
+			border: 1px #aaa solid;
+			width: 100%;
+		}
+	}
+	.actions-row {
+		padding-left: 10px;
+		padding-right: 10px;
+		color: #777;
+	}
+	.winner-row {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+}

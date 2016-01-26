@@ -1,0 +1,20 @@
+<tr>
+  <td>
+    <%= image_tag contest.picture.url, class: "img img-rounded contest-image-xs" %>
+  </td>
+  <td class="text-center vertical-middle">
+    <%= contest.brand.name %> - <%= contest.description %>
+  </td>
+  <td class="text-center vertical-middle">
+    <%= link_to "View", contest_path(contest), class: "btn btn-default btn-xs btn-actions" %>
+  </td>
+  <td class="text-center vertical-middle">
+    <%= link_to "Edit", edit_contest_path(contest), class: "btn btn-default btn-xs btn-actions" %>
+  </td>
+  <td class="text-center vertical-middle">
+    <%= link_to "Delete", contest_path(contest), class: "btn btn-default btn-xs btn-actions", method: :delete, data: {confirm: "Are you sure?"} %>
+  </td>
+  <td class="text-center vertical-middle">
+    <span class="label label-<%= contest.status == 'OPEN' ? 'success' : 'danger' %>"><%= contest.status %></span>
+  </td>
+</tr>

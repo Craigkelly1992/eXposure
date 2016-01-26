@@ -1,0 +1,73 @@
+// Place all the styles related to the brands controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.brand-image-xs {
+  width: 100px;
+}
+.brand-image-sm {
+  width: 100px;
+  height: 100px;
+}
+.brand-image-md {
+  width: 200px;
+}
+.brand-image-flex {
+  width: 100%;
+
+}
+.upload-preview {
+  vertical-align: middle;
+  margin-right: 20px;
+}
+.picture-brand {
+  position: absolute;
+  top: -1000;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  width: 0px;
+  height: 0px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.top-space {
+  margin-top: 20px;
+}
+.sidebar {
+  border-right: 1px #ddd solid;
+}
+.text-area {
+  margin-bottom: 30px;
+}
+.brand-stats {
+  margin-top: 20px;
+}
+.second-row {
+  vertical-align: middle;
+  margin-top: 3px;
+}
+.brand-name {
+  margin-top: 0px;
+}
+.remove_img_preview {
+    position:relative;
+    float: right;
+    background:yellowgreen;
+    color:blue;
+    border-radius:10px;
+    margin-top: 10px;
+    font-size:0.9em;
+    padding: 0 0.1em 0;
+    text-align:center;
+    cursor:pointer;
+}
+.remove_img_preview:before {
+    content: "X";
+}
+.brand-image-with-span-remove{
+  width: 30%;
+  float: left;
+  margin-left: 20px;
+  padding-bottom: 20px;
+}

@@ -1,0 +1,110 @@
+== README
+
+=== API Access
+
+* Login: /api/users/login?user_email=XXXX&user_password=XXXX
+This will return the user object with the auth token.
+
+* Other requests must contain: &user_email=user@example.com&user_token=XXXXXXX
+
+==== PAGINATION
+Just add ?page=# to the url
+
+USERS
+=====
+
+* show: GET /api/users/:id
+
+* profile: GET /api/profile
+
+* create: POST /api/users
+Rails is expecting something like: user[first_name]
+Parameters: first_name, last_name, email, username(???), password, phone, device_token
+
+* update: POST /api/users/:id
+Again, users[first_name]
+Parameters: first_name, last_name, email, username(???), password, phone, device_token, profile_picture, background_picture
+PS: not sure how to send the picture for now
+
+* destroy: DELETE /api/users/:id
+
+Save token:
+* POST   /api/users/:id/save_token     params: device_token
+
+Follow:
+
+* POST /api/users/:id/follow
+* POST /api/users/:id/unfollow
+* GET /api/users/:id/check_follow   (checks if the user is being followed by current_user)
+
+Search:
+* GET /api/users/search?     params: q (query)
+
+Following
+* GET /api/users/:id/following
+
+Followers
+* GET /api/users/:id/followers
+
+
+BRANDS
+======
+
+We need to log every time somebody clicks on the website, facebook, twitter, instagram, a click is logged on the database. To store a click, use:
+
+* to log: POST api/brands/:id/click
+params: target=website    or facebook, or instagram.....
+
+* check if current_user is following a brand: POST /api/brands/:id/check_follow
+where :id is the brand id
+
+* follow: /api/brands/:id/follow
+* unfollow: /api/brands/:id/unfollow
+
+* GET /api/brands      LIST ALL BRANDS
+* GET /api/brands/:id     GET A BRAND BY ID
+
+
+CONTESTS
+========
+
+* GET /api/contests returns list of all contests
+* GET /api/contests/:id   return a contest by id. Returns also the methods: [:submissions, :status, :submissions_count, :winner]
+* GET /api/contests/by_brand    return contests by brand. Params: brand_id
+
+
+
+POSTS
+=====
+
+* POST /api/posts to create a post. Params: contest_id, uploader_id, image, text
+* GET /api/posts/:id   return a post by ID
+* GET /api/posts   return all posts
+* GET /api/posts/my_posts  returns posts from current_user
+* GET /api/posts/by_user    returns posts by user. Params: user_id
+* GET /api/posts/by_contest  returns posts by contest. Params: contest_id
+* GET /api/posts/by_brand  returns posts by brand. Params: brand_id
+* GET /api/posts/stream return posts from who you follow
+* GET /api/posts/:id/comments returns the comments of a post
+* POST /api/posts/:id/like
+* POST /api/posts/:id/unlike
+
+COMMENTS
+========
+
+* POST /api/comments creates a comment on the post. Params: post_id, comment[text]
+
+
+RANKINGS
+========
+Global shows only top 50. All results are sorted by cached_score DESC
+
+ * GET /api/rankings/global
+ * GET /api/rankings/followers
+ * GET /api/rankings/following
+
+
+ NOTIFICATIONS
+ =============
+
+ * GET /api/notifications

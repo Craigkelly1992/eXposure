@@ -1,0 +1,19 @@
+<tr>
+  <td>
+    <% brand.photos.each do |photo|%>
+      <%= image_tag photo.picture_url, class: "img img-rounded brand-image-xs upload-preview" %>
+    <% end %>
+  </td>
+  <td class="text-center vertical-middle">
+    <%= brand.name %> - <%= brand.description %>
+  </td>
+  <td class="text-center vertical-middle">
+    <%= link_to "View", brand_path(brand), class: "btn btn-default btn-xs btn-actions" %>
+  </td>
+  <td class="text-center vertical-middle">
+    <%= link_to "Edit", edit_brand_path(brand), class: "btn btn-default btn-xs btn-actions" %>
+  </td>
+  <td class="text-center vertical-middle">
+    <%= link_to "Delete", brand_path(brand), class: "btn btn-default btn-xs btn-actions", method: :delete, data: {confirm: "Are you sure?"} %>
+  </td>
+</tr>
